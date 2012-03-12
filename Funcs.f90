@@ -114,10 +114,10 @@ contains
 !!$    include "fftw3.f"
 !!$    integer :: ndata
 !!$    complex :: data_in(:), data_out(:)
-!!$    complex(kind=8) :: in(size(data_in)), out(size(data_out))
+!!$    complex :: in(size(data_in)), out(size(data_out))
 !!$    ndata = size(in)
-!!$    in = cmplx(data_in,kind=8)
-!!$    out = cmplx(data_out,kind=8)
+!!$    in = cmplx(data_in)
+!!$    out = cmplx(data_out)
 !!$    !Do an inverse transform
 !!$    call dfftw_execute_dft(plan,in,out)
 !!$    !Normalize out
@@ -133,7 +133,7 @@ contains
     integer :: ndata,n_start,n_end,middle
     complex,intent(in) :: data_in(:) 
     complex :: data_out(:)
-    complex(kind=8) :: in(size(data_in)), out(size(data_out))
+    complex :: in(size(data_in)), out(size(data_out))
     integer*8 :: plan
 
     ndata = size(data_in)
@@ -142,11 +142,11 @@ contains
     n_end = middle +  floor(ndata/2.)
 
     !Make a dummy array that is pad x the size of the input array to pad zeros
-    in = cmplx(0.,kind=8)
-    out = cmplx(0.,kind=8)
+    in = cmplx(0.)
+    out = cmplx(0.)
 
     !First change the precision to standard double and put it in the middle
-    in = cmplx(data_in,kind=8)
+    in = cmplx(data_in)
 
     !shift the data
     !call fft_shift(in)
@@ -179,10 +179,10 @@ contains
 !!$    integer :: ndata
 !!$    complex, dimension(:) :: data_in
 !!$    complex, dimension(:) :: data_out
-!!$    complex(kind=8), dimension(size(data_in)) :: in, out
+!!$    complex, dimension(size(data_in)) :: in, out
 !!$    ndata=size(data_in)
-!!$    in = cmplx(data_in,kind=8)
-!!$    out = cmplx(data_out,kind=8)
+!!$    in = cmplx(data_in)
+!!$    out = cmplx(data_out)
 !!$    !in is the data you want to transform
 !!$    !Do a forward transform
 !!$    call dfftw_execute_dft(plan,in,out)
@@ -199,7 +199,7 @@ contains
     integer :: ndata,n_start, n_end,middle
     complex,intent(in) :: data_in(:)
     complex :: data_out(:)
-    complex(kind=8) :: in(size(data_in)), out(size(data_out))
+    complex :: in(size(data_in)), out(size(data_out))
     integer*8 :: plan
 
     ndata = size(data_in)
@@ -210,13 +210,13 @@ contains
     n_end = middle + floor(ndata/2.)
 
     !Make a dummy array that is 11x the size of the input array to pad zeros
-    in = cmplx(0.,kind=8)
-    out = cmplx(0.,kind=8)
+    in = cmplx(0.)
+    out = cmplx(0.)
 
     !First change the precision to standard double and put it in the middle
-    !in(ndata*n_start+1:ndata*n_end) = cmplx(data_in,kind=8)
-    !out(ndata*n_start+1:ndata*n_end) = cmplx(data_out,kind=8)
-    in = cmplx(data_in,kind=8)
+    !in(ndata*n_start+1:ndata*n_end) = cmplx(data_in)
+    !out(ndata*n_start+1:ndata*n_end) = cmplx(data_out)
+    in = cmplx(data_in)
 
     !shift the data
     !call fft_shift(in) 
@@ -244,8 +244,8 @@ contains
   subroutine fft_shift(stuff_in)
     
     implicit none
-    complex(kind=8) :: stuff_in(:)
-    complex(kind=8) :: dummy(size(stuff_in))
+    complex :: stuff_in(:)
+    complex :: dummy(size(stuff_in))
     integer :: fin, middle
 
     fin = size(stuff_in)
@@ -264,8 +264,8 @@ contains
   subroutine ifft_shift(stuff_in)
     
     implicit none
-    complex(kind=8) :: stuff_in(:)
-    complex(kind=8) :: dummy(size(stuff_in))
+    complex :: stuff_in(:)
+    complex :: dummy(size(stuff_in))
     integer :: fin
     integer :: middle
 
